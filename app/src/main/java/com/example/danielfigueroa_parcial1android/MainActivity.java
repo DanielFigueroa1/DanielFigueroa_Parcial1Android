@@ -24,7 +24,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText NombreUsuario;
     private Button OkBoton;
-    private BufferedWriter writer;
+    private TCPSingleton tcp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
         NombreUsuario = findViewById(R.id.NombreUsuario);
         OkBoton = findViewById(R.id.OkBoton);
+
+        tcp = TCPSingleton.getInstance();
+        tcp.start();
 
         OkBoton.setOnClickListener( //metodo onclick con parametro
 
@@ -49,50 +53,14 @@ public class MainActivity extends AppCompatActivity {
                     String json = gson.toJson(obj);
                     //Log.e(">>>","funciono"+json);
 
-                    new Thread(
-                            ()->{ //metodo run del runable sin parametro
-                                try {
+                    //singleton envio
+                    tcp.enviarNombre();
 
-                                    writer.write(json + "\n"); //enviar el mensaje igual
-                                    writer.flush(); //para que envie la info
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-
-                            }
-                    ).start();
                     Intent i = new Intent(this, ControlActivity.class);
                     startActivity(i);
                 }
         );
 
-        new Thread( //generacion de hilo usar un singleton aqui para poder hacerse en mas clases y eso obliga a hacer un clase singleton
-                () -> {
-                    try {
-                        System.out.println("Enviando solicitud...");//todavia muy prematuro para pedir los datos
-
-                        Socket socket = new Socket("10.0.2.2", 5000); //solicitud al server donde necesito que el server busque la ip y puerto
-                        System.out.println("Conexion establecida");
-                        //socket es como una puerta hacia el servidor
-                        InputStream is = socket.getInputStream();
-                        OutputStream out = socket.getOutputStream();
-
-                        /*BufferedWriter gracias a que la declare anteriormente de forma global*/
-                        //globalizarlo para que funcione, necesto declarar el writer
-                        writer = new BufferedWriter(new OutputStreamWriter(out));
-                        BufferedReader reader = new BufferedReader(new InputStreamReader(is)); //declarando el lector para que lea mensajes del servidor
-
-                        while (true) { //bucle infinito de lectura
-                            System.out.println("Esperando nombre...");
-                            String line = reader.readLine(); //llegan los mensajes del servidor
-                            System.out.println("Nombre recibido" + line);
-
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
-                }
-        ).start();
+        TCPSingleton tcp = TCPSingleton.getInstance();
     }
 }
