@@ -32,6 +32,11 @@ public class TCPSingleton extends Thread {
     //globales
     private Socket socket;
     private BufferedWriter writer;
+   // private MainActivity mainActivity;
+
+    /*public void setObserver(MainActivity mainActivity){
+        this.mainActivity = mainActivity;
+    }*/
 
     @Override
     public void run(){
@@ -61,12 +66,14 @@ public class TCPSingleton extends Thread {
         }
     }
 
-    public void enviarNombre(){
+
+
+    public void enviarNombre(String message){
         new Thread(
                 ()->{ //metodo run del runable sin parametro
                     try {
 
-                        writer.write(json + "\n"); //enviar el mensaje igual
+                        writer.write(message + "\n"); //enviar el mensaje igual
                         writer.flush(); //para que envie la info
                     } catch (IOException e) {
                         e.printStackTrace();

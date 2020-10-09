@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.EditText;
 
 public class ControlActivity extends AppCompatActivity {
 
@@ -14,6 +13,7 @@ public class ControlActivity extends AppCompatActivity {
     private Button DerechaBoton;
     private Button ColorBoton;
     private TCPSingleton tcp;
+    Usuario usuario;
 
 
     @Override
@@ -27,5 +27,34 @@ public class ControlActivity extends AppCompatActivity {
         DerechaBoton = findViewById(R.id.DerechaBoton);
         ColorBoton = findViewById(R.id.ColorBoton);
         tcp = TCPSingleton.getInstance();
+
+
+        ArribaBoton.setOnClickListener(
+                (v)-> {
+                    usuario.moverArriba();
+                }
+        );
+        AbajoBoton.setOnClickListener(
+                (v)-> {
+                    usuario.moverAbajo();
+                }
+        );
+        IzquierdaBoton.setOnClickListener(
+                (v)-> {
+                    usuario.moverIzquierda();
+                }
+        );
+        DerechaBoton.setOnClickListener(
+                (v)-> {
+                    usuario.moverDerecha();
+                }
+        );
+        ColorBoton.setOnClickListener(
+                (v)-> {
+
+                }
+        );
+
+
     }
 }

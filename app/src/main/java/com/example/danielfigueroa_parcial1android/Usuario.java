@@ -1,4 +1,4 @@
-package com.example.danielfigueroa_parcial1android.model;
+package com.example.danielfigueroa_parcial1android;
 
 import java.util.UUID;
 
@@ -48,31 +48,31 @@ public class Usuario {
         this.azul = azul;
         //usar rojo verde azul y que sean numero enteros con RGB tambien se puede hacer uso de un string
         this.vel = 3;
-        String id = UUID.randomUUID().toString();
+
     }
 
     public void moverIzquierda() {
-        if (posX > 0 && posX < 600) {
+        //if (posX > 0 && posX < 600) {
             posX -= vel;
-        }
+        //}
     }
 
     public void moverDerecha() {
-        if (posX > 0 && posX < 600) {
+        //if (posX > 0 && posX < 600) {
             posX += vel;
-        }
+        //}
     }
 
     public void moverAbajo() {
-        if (posY > 0 && posY < 800) {
+        //if (posY > 0 && posY < 800) {
             posY -= vel;
-        }
+        //}
     }
 
     public void moverArriba() {
-        if (posY > 0 && posY < 800) {
+        //if (posY > 0 && posY < 800) {
             posY += vel;
-        }
+        //}
     }
 
     public String getNombre() {
