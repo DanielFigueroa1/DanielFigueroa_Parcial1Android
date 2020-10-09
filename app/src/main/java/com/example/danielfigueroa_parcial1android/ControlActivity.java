@@ -51,7 +51,7 @@ public class ControlActivity extends AppCompatActivity {
         );
         ColorBoton.setOnClickListener(
                 (v)-> {
-
+                    usuario.cambioColor();
                 }
         );
 

@@ -75,6 +75,12 @@ public class Usuario {
         //}
     }
 
+    public void cambioColor(){
+        rojo -=255;
+                verde=0;
+                azul+=255;
+    }
+
     public String getNombre() {
         return nombre;
     }
